@@ -1,11 +1,48 @@
-const button = document.querySelector("button")! as HTMLButtonElement;
-const input1 = document.getElementById("num1")! as HTMLInputElement;
-const input2 = document.getElementById("num2")! as HTMLInputElement;
+// this is not recommended let TS to infered this
+// const person: { name: string; age: number } = {
+//     const person:{name:string,age:number,hobbies:string[],   role:[number, string]}= {
+//     name: 'Deepak Bhatt',
+//         age: 30,
+//         hobbies: ['Cooking', 'Dance'],
+//         role:[1,'admin']
+  
+//     }
 
-function add(num1: number, num2: number) {
-  return num1 + num2;
+//     //exceptional case this will also work 
+// person.role.push('super-admin')
+// person.role[0] = 10;
+
+
+// default behavior is starting from 0
+enum Role { ADMIN, IT, ACCOUNTANT };
+
+
+// but if you want then you can also add starting number
+
+// enum Role { ADMIN=100, IT, ACCOUNTANT };
+
+
+
+// you can also store different values there 
+
+// enum Role { ADMIN=100, IT=300, ACCOUNTANT =600};
+
+
+// you can also store different STRINGS WITH MIXED TYPE there 
+
+// enum Role { ADMIN=100, IT='Machine Installation', ACCOUNTANT = 60};
+
+    const person= {
+    name: 'Deepak Bhatt',
+        age: 30,
+        hobbies: ['Cooking', 'Dance'],
+        role:Role.ADMIN
+      }
+
+
+let favoriteActions: (string | number)[];
+favoriteActions=['Sports', 1]
+console.log('person :', person)
+if (person.role === Role.ADMIN) {
+    console.log('this person is admin')
 }
-
-button.addEventListener("click", ()=> {
-  console.log(add(+input1.value, +input2.value));
-});

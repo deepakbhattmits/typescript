@@ -15,25 +15,56 @@
 // }
 // user.greet('Hi there i am ')
 
-interface Greetable
+
+// type AddFn = (n1: number, n2: number) => number;
+
+
+interface AddFn
 {
-    name: string;
+    (n1:number, n2:number):number
+}
+
+let addFn: AddFn;
+
+addFn = (n1: number, n2: number) => n1 + n2
+
+// console.log(addFn(3,2))
+
+interface Named
+{
+    readonly name?: string; // we can add readonly property into that
+    outPutname?: string;
+}
+interface Greetable extends Named
+{
     greet(phrase:string):void
 }
 class Person implements Greetable
 {    
-    name: string;
+    name?: string;
     age = 30;
-    constructor(n: string)
+    constructor(n?: string)
     {
-        this.name = n;
+        if (n)
+        {
+            
+            this.name = n;
+        }
     }
     greet(phrase:string)
     {
-        console.log(phrase)
+        if (this.name)
+        {
+            console.log(phrase, this.name);
+        } else
+        {
+         
+            console.log(phrase);   
+        }
     }
 }
 let user: Greetable;
 user = new Person('Deepak')
+// user.name='Puji '
 user.greet('hello i am')
 console.log(user)

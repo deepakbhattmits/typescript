@@ -15,26 +15,25 @@
 //     }
 // }
 // user.greet('Hi there i am ')
-var addFn;
-addFn = function (n1, n2) { return n1 + n2; };
-var Person = /** @class */ (function () {
-    function Person(n) {
+let addFn;
+addFn = (n1, n2) => n1 + n2;
+class Person {
+    constructor(n) {
         this.age = 30;
         if (n) {
             this.name = n;
         }
     }
-    Person.prototype.greet = function (phrase) {
+    greet(phrase) {
         if (this.name) {
             console.log(phrase, this.name);
         }
         else {
             console.log(phrase);
         }
-    };
-    return Person;
-}());
-var user;
+    }
+}
+let user;
 user = new Person('Deepak');
 // user.name='Puji '
 user.greet('hello i am');

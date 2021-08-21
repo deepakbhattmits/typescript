@@ -24,13 +24,13 @@ var Role;
 // enum Role { ADMIN=100, IT=300, ACCOUNTANT =600};
 // you can also store different STRINGS WITH MIXED TYPE there 
 // enum Role { ADMIN=100, IT='Machine Installation', ACCOUNTANT = 60};
-var person = {
+const person = {
     name: 'Deepak Bhatt',
     age: 30,
     hobbies: ['Cooking', 'Dance'],
     role: Role.ADMIN
 };
-var favoriteActions;
+let favoriteActions;
 favoriteActions = ['Sports', 1];
 console.log('person :', person);
 if (person.role === Role.ADMIN) {

@@ -1,10 +1,10 @@
 "use strict";
-var userInput;
-var userName;
+let userInput;
+let userName;
 userInput = 20;
 userInput = 'Deepak';
 if (typeof userInput === 'string') {
     userName = userInput;
 }
-var generateError = function (message, code) { throw { message: message, statusCode: code }; };
+const generateError = (message, code) => { throw { message, statusCode: code }; };
 generateError('something went wrong', 500);

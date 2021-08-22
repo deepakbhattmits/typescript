@@ -1,69 +1,65 @@
 "use strict";
-// Generic type is a type which is kind of connected with some other types
-// and is really flexible regarding which exact type that other type 
-// const names: Array<string | number> = ['Deepak'];
-// console.log(names)
-// const promise: Promise<string> = new Promise((resolve, reject) =>
+// make sure inside your tsconfig file 
+// just add target to es6 AND 
+// add the experimentalDecorator:true
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+// const Logger =(constructor: Function)=>
 // {
-//     setTimeout(() =>
-//     {
-//         resolve('This is Done')
-//     }
-//         , 2000)
-// });
-// promise.then(data =>
-// {
-//     data.split('')
-// })
-// const merge = (a: object, b: object) => Object.assign(a, b);
-const merge = (a, b) => Object.assign(a, b);
-const storedObj = merge({ name: 'Deepak' }, { age: 30 });
-console.log('STOREDOBJ :', storedObj);
-// if we do that then TS can't know theis storedObj have this name key in that
-// let's refactor with generics type
-// storedObj.name;
-console.log('STOREDOBJ.name :', storedObj.name);
-//constraints
-// In above we have added <T,U> generic types but we don't care about the it's type now we have
-// add this with the help of constraints
-// extends object - this will tell TS now T and U has to be a object
-const merg = (a, b) => Object.assign(a, b);
-const storeObj = merg({ name: 'Puji' }, { age: 26 });
-console.log('constraints  OBJ :', storeObj);
-const countAndPrint = (element) => {
-    let descriptionText = 'Got no value.';
-    if (element.length > 0) {
-        descriptionText = `Got ${element.length} Element${element.length > 1 ? 's' : ''}`;
+//     console.log('Logging...');
+//     console.log(constructor)
+// }
+const Logger = (logString) => (constructor) => {
+    console.log(logString);
+    console.log(constructor);
+};
+const withTemplate = (template, hookId) => (constructor) => {
+    const p = new constructor();
+    const hookEl = document.getElementById(hookId);
+    if (hookEl) {
+        hookEl.innerHTML = template;
+        hookEl.querySelector('h1').textContent = `Hi ${p.name} Welcome`;
     }
-    return [element, descriptionText];
 };
-console.log('TEST : ', countAndPrint(['Sprots', 'Cooking']));
-const extractAndConvert = (obj, key) => {
-    return obj[key];
-};
-console.log('extractAndConvert : ', extractAndConvert({ name: 'Deep' }, 'name'));
-class DataStorage {
+// @Logger
+// @Logger ('Logging - Person')
+let PersonClass = class PersonClass {
     constructor() {
-        this.data = [];
+        this.name = 'Deepak';
+        console.log('Creating person object');
     }
-    addItem(item) {
-        this.data.push(item);
+};
+PersonClass = __decorate([
+    withTemplate('<h1>Hi There!</h1>', 'app')
+], PersonClass);
+const per = new PersonClass();
+console.log('test : ', per);
+//.
+const Log = (target, propertyName) => {
+    console.log('property-decorator');
+    console.log(target, propertyName);
+};
+class Product {
+    constructor(title, p) {
+        this.title = title;
+        this._price = p;
     }
-    removeItem(item) {
-        this.data = this.data.filter(el => el !== item);
-        // this.data.splice(this.data.indexOf(item),1)
+    set price(val) {
+        if (this.price > 0) {
+            this.price = val;
+        }
+        else {
+            throw new Error('Invalid price - should be postive');
+        }
     }
-    getItems() {
-        return [...this.data];
-    }
-    getItemsLength() {
-        return [...this.data].length;
+    getPriceWithTax(tax) {
+        return this._price * (1 + tax);
     }
 }
-const textStorage = new DataStorage();
-textStorage.addItem('Deepak');
-textStorage.addItem('Puji');
-textStorage.addItem('Chotu');
-console.log('Here is the users :', textStorage.getItemsLength(), textStorage.getItems());
-textStorage.removeItem('Chotu');
-console.log('After delete user: Chotu, total users :', textStorage.getItemsLength(), textStorage.getItems());
+__decorate([
+    Log
+], Product.prototype, "title", void 0);
